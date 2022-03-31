@@ -30,8 +30,11 @@ class UserController extends Controller
         $user = User::create($request->all());
 
         $token = $user->createToken('inscription');
- 
-        return ['data' => $userk, 'token' => $token->plainTextToken, 'message' => 'User created successfully'];
+        $splittedToken = explode("|", $token->plainTextToken);
+        $token = $splittedToken[1];
+
+
+        return ['data' => $user, 'token' => $token, 'message' => 'User created successfully'];
     }
 
     /**
@@ -43,6 +46,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+
 
         return ['data' => $user, 'message' => 'User informations'];
     }
