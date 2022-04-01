@@ -26,7 +26,6 @@ class LoginController extends Controller
         if ($user != null && (password_verify($request['password'], $user->password)) && ($tries == null || now() > $tries->next_try)) {
             $token = $user->createToken('inscription');
 
-
             if ($tries != null) {
                 $tries->delete();
             }
